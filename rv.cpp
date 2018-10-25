@@ -1,3 +1,4 @@
+//Arunabha Chakraborty(axc175630)
 // 
 // This file contains programs for generating random numbers with
 // uniform distributions and exponential distributions.
