@@ -44,7 +44,7 @@ int main()
 	  double EN = 0.0;                // For calculating E[N]
 
 	  int done = 0;                   // End condition satisfied?
-	  long int blk = 0;		  // To count the number of blocked/dropped customers
+	  double blk = 0.0;		  // To count the number of blocked/dropped customers
 
 	  cout<<"FOR rho = "<<rho<<"\n========================================================================================================================\n";
 	  Event* CurrentEvent;
@@ -87,9 +87,6 @@ int main()
 				EN += N*(clock-prev);
 				N++;
 				Elist.insert(clock+exp_rv(lambda/2),ARR);	//Since randomly 50% requests are blocked
-				/*if (N == k+1){
-					Elist.insert(clock+exp_rv(mu),DEP);
-				}*/
 				break;
 			case DEP:
 				EN += N*(clock-prev);
@@ -111,7 +108,7 @@ int main()
 			switch (CurrentEvent->type){
 			case ARR:					//Arrivals will be blocked if N>2k
 				EN += N*(clock-prev);
-				N++;
+				//Block further arrivals.
 				blk++;					//Increment the number of customers blocked
 				break;
 			case DEP:
@@ -141,8 +138,14 @@ int main()
 	  double EN_analysis = p1+(2*p2)+(3*p3)+(4*p4)+(5*p5)+(6*p6)+(7*p7)+(8*p8);
 	  double lambda_avg = (lambda*p0)+(lambda*p1)+(lambda*p2)+(lambda*p3)+(lambda_half*p4)+(lambda_half*p5)+(lambda_half*p6)+(lambda_half*p7);
 	  double avg_time = EN_analysis/lambda_avg;	//Little's law
-	  cout << setw(50)<<"Expected number of customers (simulation): " << EN/clock <<setw(50)<<"Expected number of customers (analysis):"<< EN_analysis<< endl;
-	  cout << setw(50)<<"Average time (simulation): " << EN/(100000-blk) << setw(50)<<" average time(analysis):"<<avg_time<<endl;
+	  double numerator = (lambda_half*0.5*p4)+(lambda_half*0.5*p5)+(lambda_half*0.5*p6)+(lambda_half*0.5*p7)+(lambda_half*1*p8);
+	  double denominator = (lambda*p0)+(lambda*p1)+(lambda*p2)+(lambda*p3)+(lambda_half*p4)+(lambda_half*p5)+(lambda_half*p6)+(lambda_half*p7)+(lambda_half*p8*0);
+	  double Pblock = numerator/denominator;
+	  cout<<"blk : ::::::::::::"<<blk<<"\n"<<endl;
+	  cout << setw(50)<<"Expected number of customers (simulation): " << EN/clock <<setw(50)<<"Expected number of customers (analysis): "<< EN_analysis<< endl;
+	  cout << setw(50)<<"Average time (simulation): " << EN/(100000-blk) <<setw(50)<<"Average time(analysis): "<<avg_time<<endl;
+	  cout << setw(50)<<"Blocking probability(simulation): "<<blk/(100000-blk) <<setw(50)<<"Blocking probability(analysis): "<<Pblock<<endl;
+	  //cout << setw(50)<<"Total Utilization(simulation): "<< <<setw(50)<<"Total Utilization(analysis): "<< <<endl;
 
   }
 }
