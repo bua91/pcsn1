@@ -1,10 +1,12 @@
-Simulation of M/M/1 queueing system
------------------------------------
-
-Description:  This program simulates an M/M/1 queueing system.  
-The simulation outputs the number of customers in the queue after 
-100000 departures from the system, and the average number of 
-customers in the system over the entire simulation.
+Queueing System Description:::::::::
+	Consider a Web site that operates m = 2 identical replicated servers to distribute files. Requests to the site arrive
+according to a Poisson process with a rate of λ requests per second. However, if the site is already handling K or
+more requests (those currently being served or waiting to be served), then, to reduce the load, the site will start to
+randomly block subsequent requests with 50% probability. If the number of requests reaches 2K, then all additional
+requests will be blocked until the number of requests in the system falls below 2K. There are a total of m = 2 servers;
+however, to reduce energy consumption, only one of the servers is operating whenever the number in the system is
+less than or equal to K. Whenever the number in the system exceeds K, the second server is placed into operation.
+The service time of each request is exponentially distributed with an average service time of 1/µ seconds. Assume that K >= 2.
 
 Platform/compiler: UNIX, g++
 
