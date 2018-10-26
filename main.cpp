@@ -46,6 +46,7 @@ int main()
 	  int done = 0;                   // End condition satisfied?
 	  double blk = 0.0;		  // To count the number of blocked/dropped customers
 	  double util = 0.0; 		  // To calculate utilization
+	  double random =0.0;
 
 	  cout<<"FOR rho = "<<rho<<"\n========================================================================================================================\n";
 	  Event* CurrentEvent;
@@ -88,7 +89,11 @@ int main()
 			case ARR:
 				EN += N*(clock-prev);
 				N++;
-				Elist.insert(clock+exp_rv(lambda/2),ARR);	//Since randomly 50% requests are blocked
+				random = uni_rv();
+				if (random > 0.5)
+					Elist.insert(clock+exp_rv(lambda),ARR); 	//Since randomly 50% requests are blocked
+				else if (random < 0.5) 
+					blk++;
 				break;
 			case DEP:
 				EN += N*(clock-prev);
