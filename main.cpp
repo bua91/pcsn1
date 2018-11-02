@@ -48,7 +48,7 @@ int main()
 	  double util = 0.0; 		  // To calculate utilization
 	  double random =0.0;
 
-	  cout<<"FOR rho = "<<rho<<"\n========================================================================================================================\n";
+	  cout<<"FOR rho = "<<rho<<"\n=========================================================================================================================\n";
 	  Event* CurrentEvent;
 
 	  Elist.insert(exp_rv(lambda),ARR); 	// Generate first arrival event
